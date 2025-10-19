@@ -3,59 +3,79 @@
 const questions = [
   {
     num: 1,
-    question: 'What does HTML stand for?',
-    answer: 'Hyper Text Markup Language',
-    options: [
-      'Hyper Text Multiple Language',
-      'Hyper Text Preprocessor',
-      'Hyper Tool Multi Language',
-      'Hyper Text Markup Language'
-    ]
+    question: 'What is the largest organ in the human body?',
+    answer: 'Skin',
+    options: ['Heart', 'Liver', 'Brain', 'Skin']
   },
   {
     num: 2,
-    question: 'What does CSS stand for?',
-    answer: 'Cascading Style Sheet',
+    question: 'Who developed the theory of relativity?',
+    answer: 'Albert Einstein',
     options: [
-      'Computer Style Sheet',
-      'Cascading Style Sheet',
-      'Colorful Style Sheet',
-      'Common Style Sheet'
+      'Isaac Newton',
+      'Galileo Galilei',
+      'Nikola Tesla',
+      'Albert Einstein'
     ]
   },
   {
     num: 3,
-    question: 'What does PHP stand for?',
-    answer: 'Hypertext Preprocessor',
-    options: [
-      'Hypertext Preprocessor',
-      'Hypertext Programming',
-      'Hometext Preprocessor',
-      'Hypertext Preprogramming'
-    ]
+    question: 'What is the capital city of Brazil?',
+    answer: 'Brasília',
+    options: ['Rio de Janeiro', 'São Paulo', 'Brasília', 'Buenos Aires']
   },
-
   {
     num: 4,
-    question: 'What does XML stand for?',
-    answer: 'eXtensible Markup Language',
-    options: [
-      'eXTra Multi-Program Language',
-      'eXecutable Multiple Language',
-      'eXtensible Markup Language',
-      'eXamine Multiple Language'
-    ]
+    question: 'In what year did the Titanic sink?',
+    answer: '1912',
+    options: ['1905', '1912', '1918', '1923']
   },
   {
     num: 5,
-    question: 'What does SQL stand for?',
-    answer: 'Structured Query Language',
+    question: "Which element has the chemical symbol 'O'?",
+    answer: 'Oxygen',
+    options: ['Gold', 'Iron', 'Oxygen', 'Osmium']
+  },
+  {
+    num: 6,
+    question:
+      'The ancient city of Machu Picchu is located in which modern country?',
+    answer: 'Peru',
+    options: ['Mexico', 'Chile', 'Peru', 'Colombia']
+  },
+  {
+    num: 7,
+    question: 'What is the primary function of chlorophyll in a plant?',
+    answer: 'To absorb light for photosynthesis',
     options: [
-      'Statement Question Language',
-      'Stylesheet Query Language',
-      'Stylish Question Language',
-      'Structured Query Language'
+      'To give the flower scent',
+      'To protect the plant from pests',
+      'To absorb water from the soil',
+      'To absorb light for photosynthesis'
     ]
+  },
+  {
+    num: 8,
+    question: "Who wrote the play 'Romeo and Juliet'?",
+    answer: 'William Shakespeare',
+    options: [
+      'Charles Dickens',
+      'Jane Austen',
+      'William Shakespeare',
+      'Mark Twain'
+    ]
+  },
+  {
+    num: 9,
+    question: "Which US state is known as the 'Sunshine State'?",
+    answer: 'Florida',
+    options: ['California', 'Texas', 'Florida', 'Hawaii']
+  },
+  {
+    num: 10,
+    question: 'How many bones are in the average adult human body?',
+    answer: '206',
+    options: ['200', '206', '212', '300']
   }
 ]
 
@@ -102,10 +122,12 @@ const showQuestion = (qIndex) => {
   }
 
   optionsBox.innerHTML = optionStatement
-  let allOptions = optionsBox.querySelectorAll('.option')
+  const allOptions = optionsBox.querySelectorAll('.option')
 
   for (let j = 0; j < allOptions.length; j++) {
-    allOptions[j].setAttribute('onclick', 'userAnswer(this)')
+    allOptions[j].addEventListener('click', (event) => {
+      userAnswer(event.target)
+    })
   }
 }
 
@@ -124,18 +146,18 @@ nextBtn.onclick = () => {
       ((rightAns * 100) / questions.length).toFixed(2) + '%'
   }
 
-  if (questions.length - 1 == questionIndex) {
+  if (questions.length - 1 === questionIndex) {
     nextBtn.textContent = 'Finish'
   }
 }
 
 const userAnswer = (answer) => {
-  let userAns = answer.textContent
-  let correctAns = questions[questionIndex].answer
-  let allOptions2 = optionsBox.querySelectorAll('.option')
+  const userAns = answer.textContent
+  const correctAns = questions[questionIndex].answer
+  const allOptions2 = optionsBox.querySelectorAll('.option')
 
   nextBtn.classList.remove('inactive')
-  if (userAns == correctAns) {
+  if (userAns === correctAns) {
     answer.classList.add('correct')
     answer.insertAdjacentHTML('beforeend', markCheck)
     rightAns++
@@ -145,7 +167,7 @@ const userAnswer = (answer) => {
     incorrectAns++
 
     for (let i = 0; i < allOptions2.length; i++) {
-      if (allOptions2[i].textContent == correctAns) {
+      if (allOptions2[i].textContent === correctAns) {
         allOptions2[i].classList.add('correct')
         allOptions2[i].insertAdjacentHTML('beforeend', markCheck)
       }
