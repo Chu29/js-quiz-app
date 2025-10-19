@@ -1,83 +1,55 @@
 'use strict'
 
-const questions = [
-  {
-    num: 1,
-    question: 'What is the largest organ in the human body?',
-    answer: 'Skin',
-    options: ['Heart', 'Liver', 'Brain', 'Skin']
-  },
-  {
-    num: 2,
-    question: 'Who developed the theory of relativity?',
-    answer: 'Albert Einstein',
-    options: [
-      'Isaac Newton',
-      'Galileo Galilei',
-      'Nikola Tesla',
-      'Albert Einstein'
-    ]
-  },
-  {
-    num: 3,
-    question: 'What is the capital city of Brazil?',
-    answer: 'Brasília',
-    options: ['Rio de Janeiro', 'São Paulo', 'Brasília', 'Buenos Aires']
-  },
-  {
-    num: 4,
-    question: 'In what year did the Titanic sink?',
-    answer: '1912',
-    options: ['1905', '1912', '1918', '1923']
-  },
-  {
-    num: 5,
-    question: "Which element has the chemical symbol 'O'?",
-    answer: 'Oxygen',
-    options: ['Gold', 'Iron', 'Oxygen', 'Osmium']
-  },
-  {
-    num: 6,
-    question:
-      'The ancient city of Machu Picchu is located in which modern country?',
-    answer: 'Peru',
-    options: ['Mexico', 'Chile', 'Peru', 'Colombia']
-  },
-  {
-    num: 7,
-    question: 'What is the primary function of chlorophyll in a plant?',
-    answer: 'To absorb light for photosynthesis',
-    options: [
-      'To give the flower scent',
-      'To protect the plant from pests',
-      'To absorb water from the soil',
-      'To absorb light for photosynthesis'
-    ]
-  },
-  {
-    num: 8,
-    question: "Who wrote the play 'Romeo and Juliet'?",
-    answer: 'William Shakespeare',
-    options: [
-      'Charles Dickens',
-      'Jane Austen',
-      'William Shakespeare',
-      'Mark Twain'
-    ]
-  },
-  {
-    num: 9,
-    question: "Which US state is known as the 'Sunshine State'?",
-    answer: 'Florida',
-    options: ['California', 'Texas', 'Florida', 'Hawaii']
-  },
-  {
-    num: 10,
-    question: 'How many bones are in the average adult human body?',
-    answer: '206',
-    options: ['200', '206', '212', '300']
+let questions = []; 
+
+const decodeHtml = (html) => {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
+}
+
+const fetchQuestions = async () => {
+  try {
+    const response = await fetch('https://opentdb.com/api.php?amount=10&type=multiple');
+    
+    if (!response.ok) {
+      throw new Error(`Network response was not OK (Status: ${response.status})`);
+    }
+    
+    const data = await response.json();
+    
+    if (data.response_code !== 0) {
+        throw new Error(`API Error: Response Code ${data.response_code}. Try different categories/amount.`);
+    }
+
+    questions = data.results.map((item, index) => {
+      const options = [...item.incorrect_answers, item.correct_answer];
+      // shuffle the answers
+      for (let i = options.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [options[i], options[j]] = [options[j], options[i]];
+      }
+      
+      return {
+        num: index + 1,
+        question: decodeHtml(item.question),
+        answer: decodeHtml(item.correct_answer),
+        options: options.map(opt => decodeHtml(opt)),
+      };
+    });
+    
+    totalQuestion.textContent = questions.length;
+    totalQuestionAns.textContent = questions.length;
+    
+    startQuiz();
+
+  } catch (e) {
+    console.error("Error loading quiz questions:", e.message);
+  
+    startBtn.textContent = `Error loading quiz: ${e.message}. Click to retry.`;
+    startBtn.classList.remove('inactive'); 
   }
-]
+};
 
 // select html elements
 const startBtn = document.querySelector('.start-quiz')
@@ -201,4 +173,4 @@ const resetQuiz = () => {
   showQuestion(questionIndex)
 }
 
-startBtn.addEventListener('click', startQuiz)
+startBtn.addEventListener('click', fetchQuestions)
