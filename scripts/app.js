@@ -195,7 +195,7 @@ exitBtn.onclick = () => {
 const resetQuiz = () => {
   questionIndex = 0
   rightAns = 0
-  wrongAns = 0
+  incorrectAns = 0
   nextBtn.textContent = 'Next Question'
   countQuestion.textContent = questionIndex + 1
   showQuestion(questionIndex)
