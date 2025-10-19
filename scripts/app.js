@@ -1,55 +1,60 @@
 'use strict'
 
-let questions = []; 
+let questions = []
 
 const decodeHtml = (html) => {
-  const txt = document.createElement("textarea");
-  txt.innerHTML = html;
-  return txt.value;
+  const txt = document.createElement('textarea')
+  txt.innerHTML = html
+  return txt.value
 }
 
 const fetchQuestions = async () => {
   try {
-    const response = await fetch('https://opentdb.com/api.php?amount=10&type=multiple');
-    
+    const response = await fetch(
+      'https://opentdb.com/api.php?amount=10&type=multiple'
+    )
+
     if (!response.ok) {
-      throw new Error(`Network response was not OK (Status: ${response.status})`);
+      throw new Error(
+        `Network response was not OK (Status: ${response.status})`
+      )
     }
-    
-    const data = await response.json();
-    
+
+    const data = await response.json()
+
     if (data.response_code !== 0) {
-        throw new Error(`API Error: Response Code ${data.response_code}. Try different categories/amount.`);
+      throw new Error(
+        `API Error: Response Code ${data.response_code}. Try different categories/amount.`
+      )
     }
 
     questions = data.results.map((item, index) => {
-      const options = [...item.incorrect_answers, item.correct_answer];
+      const options = [...item.incorrect_answers, item.correct_answer]
       // shuffle the answers
       for (let i = options.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [options[i], options[j]] = [options[j], options[i]];
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[options[i], options[j]] = [options[j], options[i]]
       }
-      
+
       return {
         num: index + 1,
         question: decodeHtml(item.question),
         answer: decodeHtml(item.correct_answer),
-        options: options.map(opt => decodeHtml(opt)),
-      };
-    });
-    
-    totalQuestion.textContent = questions.length;
-    totalQuestionAns.textContent = questions.length;
-    
-    startQuiz();
+        options: options.map((opt) => decodeHtml(opt))
+      }
+    })
 
+    totalQuestion.textContent = questions.length
+    totalQuestionAns.textContent = questions.length
+
+    startQuiz()
   } catch (e) {
-    console.error("Error loading quiz questions:", e.message);
-  
-    startBtn.textContent = `Error loading quiz: ${e.message}. Click to retry.`;
-    startBtn.classList.remove('inactive'); 
+    console.error('Error loading quiz questions:', e.message)
+
+    startBtn.textContent = `Error loading quiz: ${e.message}. Click to retry.`
+    startBtn.classList.remove('inactive')
   }
-};
+}
 
 // select html elements
 const startBtn = document.querySelector('.start-quiz')
