@@ -3,150 +3,68 @@
 const questions = [
   {
     num: 1,
-    question: 'What does CSS stand for?',
-    answer: 'Cascading Style Sheets',
+    question: 'What does HTML stand for?',
+    answer: 'Hyper Text Markup Language',
     options: [
-      'Computer Style Sheets',
-      'Creative Style Sheets',
-      'Cascading Style Sheets',
-      'Colorful Style Syntax',
-    ],
+      'Hyper Text Multiple Language',
+      'Hyper Text Preprocessor',
+      'Hyper Tool Multi Language',
+      'Hyper Text Markup Language'
+    ]
   },
   {
     num: 2,
-    question: 'Which HTML tag is used to create an unordered list?',
-    answer: '<ul>',
-    options: ['<ol>', '<li>', '<ul>', '<dl>'],
+    question: 'What does CSS stand for?',
+    answer: 'Cascading Style Sheet',
+    options: [
+      'Computer Style Sheet',
+      'Cascading Style Sheet',
+      'Colorful Style Sheet',
+      'Common Style Sheet'
+    ]
   },
   {
     num: 3,
-    question: 'Which of the following is a client-side scripting language?',
-    answer: 'JavaScript',
-    options: ['Python', 'Java', 'PHP', 'JavaScript'],
+    question: 'What does PHP stand for?',
+    answer: 'Hypertext Preprocessor',
+    options: [
+      'Hypertext Preprocessor',
+      'Hypertext Programming',
+      'Hometext Preprocessor',
+      'Hypertext Preprogramming'
+    ]
   },
+
   {
     num: 4,
-    question:
-      'In CSS, which property is used to change the text color of an element?',
-    answer: 'color',
-    options: ['font-color', 'text-color', 'color', 'background-color'],
+    question: 'What does XML stand for?',
+    answer: 'eXtensible Markup Language',
+    options: [
+      'eXTra Multi-Program Language',
+      'eXecutable Multiple Language',
+      'eXtensible Markup Language',
+      'eXamine Multiple Language'
+    ]
   },
   {
     num: 5,
-    question: "What does the 'DOM' stand for in web development?",
-    answer: 'Document Object Model',
+    question: 'What does SQL stand for?',
+    answer: 'Structured Query Language',
     options: [
-      'Data Object Manager',
-      'Document Order Module',
-      'Document Object Model',
-      'Design Only Markup',
-    ],
-  },
-  {
-    num: 6,
-    question:
-      'Which keyword is used to declare a constant variable in modern JavaScript (ES6)?',
-    answer: 'const',
-    options: ['var', 'constant', 'const', 'let'],
-  },
-  {
-    num: 7,
-    question:
-      'Which of the following is the correct way to add a comment in HTML?',
-    answer: '',
-    options: [
-      '// This is a comment',
-      '/* This is a comment */',
-      '',
-      "'This is a comment",
-    ],
-  },
-  {
-    num: 8,
-    question: "In CSS, what does the 'M' stand for in the Box Model?",
-    answer: 'Margin',
-    options: ['Max-width', 'Model', 'Media', 'Margin'],
-  },
-  {
-    num: 9,
-    question:
-      'What is the primary function of the `<head>` element in an HTML document?',
-    answer: 'To contain metadata and links to external files',
-    options: [
-      'To display the main heading of the page',
-      'To contain all the visible content on the page',
-      'To contain JavaScript code only',
-      'To contain metadata and links to external files',
-    ],
-  },
-  {
-    num: 10,
-    question:
-      'Which operator is used for strict equality comparison (value and type) in JavaScript?',
-    answer: '===',
-    options: ['==', '!=', '===', '='],
-  },
-  {
-    num: 11,
-    question:
-      "What is the default behavior of a flex container's items without any property set?",
-    answer: 'They line up in a row',
-    options: [
-      'They stack in a column',
-      'They line up in a row',
-      'They shrink to fit the content',
-      'They fill the entire container width',
-    ],
-  },
-  {
-    num: 12,
-    question:
-      'Which HTML tag is specifically designed to display a large piece of code?',
-    answer: '<pre>',
-    options: ['<code-block>', '<text-area>', '<pre>', '<samp>'],
-  },
-  {
-    num: 13,
-    question: "What is 'hoisting' in JavaScript?",
-    answer:
-      'A mechanism where variable and function declarations are moved to the top of their scope during compilation',
-    options: [
-      'A technique for moving elements on the screen',
-      'A method for importing external libraries',
-      'A server-side optimization process',
-      'A mechanism where variable and function declarations are moved to the top of their scope during compilation',
-    ],
-  },
-  {
-    num: 14,
-    question:
-      'The property `padding` in CSS controls the space between what two elements?',
-    answer: 'The content and the border',
-    options: [
-      "The element's border and other elements",
-      'The content and the border',
-      'The margin and the border',
-      'Two adjacent elements',
-    ],
-  },
-  {
-    num: 15,
-    question: 'What does AJAX stand for?',
-    answer: 'Asynchronous JavaScript and XML',
-    options: [
-      'Advanced JavaScript and XHTML',
-      'Asynchronous JavaScript and XML',
-      'All JavaScript and XAML',
-      'Asynchronous JSON and XML',
-    ],
-  },
+      'Statement Question Language',
+      'Stylesheet Query Language',
+      'Stylish Question Language',
+      'Structured Query Language'
+    ]
+  }
 ]
 
 // select html elements
 const startBtn = document.querySelector('.start-quiz')
-const quizBox = document.querySelector9('.quiz-box')
+const quizBox = document.querySelector('.quiz-box')
 const questionText = quizBox.querySelector('.que-text')
-const optionsBox = quizBox.querySelector('.next-btn')
+const optionsBox = quizBox.querySelector('.options')
+const nextBtn = document.querySelector('.next-btn')
 const totalQuestion = document.querySelector('.quiz-footer .total-que')
 const countQuestion = document.querySelector('.quiz-footer .count-que')
 const resultBox = document.querySelector('.result-box')
@@ -158,3 +76,107 @@ const retakeQuiz = document.querySelector('.result-footer .again-quiz')
 const exitBtn = document.querySelector('.result-footer .exit')
 const markWrong = '<i class="fa fa-times"></i>'
 const markCheck = '<i class="fa fa-check"></i>'
+
+// update the total number of questions on the dom
+totalQuestion.textContent = questions.length
+totalQuestionAns.textContent = questions.length
+
+const startQuiz = () => {
+  quizBox.classList.remove('inactive')
+  startBtn.classList.add('inactive')
+  countQuestion.textContent = questionIndex + 1
+  showQuestion(questionIndex)
+}
+
+let questionIndex = 0
+let rightAns = 0
+let incorrectAns = 0
+
+const showQuestion = (qIndex) => {
+  questionText.textContent =
+    questions[qIndex].num + '. ' + questions[qIndex].question
+
+  let optionStatement = ''
+  for (let i = 0; i < questions[qIndex].options.length; i++) {
+    optionStatement += `<div class='option'>${questions[qIndex].options[i]}</div>`
+  }
+
+  optionsBox.innerHTML = optionStatement
+  let allOptions = optionsBox.querySelectorAll('.option')
+
+  for (let j = 0; j < allOptions.length; j++) {
+    allOptions[j].setAttribute('onclick', 'userAnswer(this)')
+  }
+}
+
+nextBtn.onclick = () => {
+  questionIndex++
+
+  if (questions.length > questionIndex) {
+    countQuestion.textContent = questionIndex + 1
+    showQuestion(questionIndex)
+  } else {
+    quizBox.classList.add('inactive')
+    resultBox.classList.remove('inactive')
+    correctAns.textContent = rightAns
+    wrongAns.textContent = incorrectAns
+    percentage.textContent =
+      ((rightAns * 100) / questions.length).toFixed(2) + '%'
+  }
+
+  if (questions.length - 1 == questionIndex) {
+    nextBtn.textContent = 'Finish'
+  }
+}
+
+const userAnswer = (answer) => {
+  let userAns = answer.textContent
+  let correctAns = questions[questionIndex].answer
+  let allOptions2 = optionsBox.querySelectorAll('.option')
+
+  nextBtn.classList.remove('inactive')
+  if (userAns == correctAns) {
+    answer.classList.add('correct')
+    answer.insertAdjacentHTML('beforeend', markCheck)
+    rightAns++
+  } else {
+    answer.classList.add('incorrect')
+    answer.insertAdjacentHTML('beforeend', markWrong)
+    incorrectAns++
+
+    for (let i = 0; i < allOptions2.length; i++) {
+      if (allOptions2[i].textContent == correctAns) {
+        allOptions2[i].classList.add('correct')
+        allOptions2[i].insertAdjacentHTML('beforeend', markCheck)
+      }
+    }
+  }
+
+  for (let j = 0; j < allOptions2.length; j++) {
+    allOptions2[j].classList.add('disabled')
+  }
+}
+
+retakeQuiz.onclick = () => {
+  resultBox.classList.add('inactive')
+  quizBox.classList.remove('.inactive')
+
+  resetQuiz()
+}
+exitBtn.onclick = () => {
+  startBtn.classList.remove('inactive')
+  resultBox.classList.add('inactive')
+
+  resetQuiz()
+}
+
+const resetQuiz = () => {
+  questionIndex = 0
+  rightAns = 0
+  wrongAns = 0
+  nextBtn.textContent = 'Next Question'
+  countQuestion.textContent = questionIndex + 1
+  showQuestion(questionIndex)
+}
+
+startBtn.addEventListener('click', startQuiz)
