@@ -8,14 +8,40 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/index.css" />
     <title>Quizito</title>
   </head>
   <body>
-    <header class="start-quiz">Start Quiz</header>
+    <section class="quiz-setup">
+      <div class="category-ctn">
+        <label for="categories">Select Category:</label>
+        <select name="categories" id="categories" class="categories"></select>
+      </div>
+      <div class="difficulty-num-questions-ctn">
+        <div class="diff">
+          <label for="difficulty">Difficulty:</label>
+          <select name="difficulty" id="difficulty" class="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div class="number-of-qtn">
+          <input
+            type="number"
+            name="questions"
+            id="num-qtn"
+            placeholder="How many questions?..."
+            min="5"
+            step="5"
+          />
+        </div>
+      </div>
+      <button class="start-quiz">Start Quiz</button>
+    </section>
 
     <!-- Questions section -->
     <section class="quiz-box inactive">
