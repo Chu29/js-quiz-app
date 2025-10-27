@@ -1,17 +1,46 @@
 'use strict'
 
-let questions = []
+// select quiz params
+const numberOfQtn = document.querySelector('#num-qtn')
+const difficulty = [...document.querySelectorAll('.difficulty option')]
+let categoriesOption = []
 
+let questions = []
+questions.ma
+
+/**
+ * This function helps to decode questions containing html tags
+ * It receives the the question as an arg, stores it in a textarea and then returns the text content of the value stored.
+ * @param {*} html
+ * @returns
+ */
 const decodeHtml = (html) => {
   const txt = document.createElement('textarea')
   txt.innerHTML = html
   return txt.value
 }
 
+const fetchCategories = async () => {
+  const response = await fetch('https://opentdb.com/api_category.php')
+  const data = await response.json()
+  const categories = document.querySelector('.categories')
+
+  for (let index = 0; index < data.trivia_categories.length; index++) {
+    const element = data.trivia_categories[index]
+    categories.insertAdjacentHTML(
+      'beforeend',
+      `<option value = "${element.id}">${element.name}</option>`
+    )
+    categoriesOption.push(categories)
+  }
+}
+
+fetchCategories()
+
 const fetchQuestions = async () => {
   try {
     const response = await fetch(
-      'https://opentdb.com/api.php?amount=10&type=multiple'
+      `https://opentdb.com/api.php?amount=${numberOfQtn.value}&category=18&difficulty=easy`
     )
 
     if (!response.ok) {
@@ -28,8 +57,8 @@ const fetchQuestions = async () => {
       )
     }
 
-    questions = data.results.map((item, index) => {
-      const options = [...item.incorrect_answers, item.correct_answer]
+    questions = data.results.map((result, index) => {
+      const options = [...result.incorrect_answers, result.correct_answer]
       // shuffle the answers
       for (let i = options.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
@@ -38,8 +67,8 @@ const fetchQuestions = async () => {
 
       return {
         num: index + 1,
-        question: decodeHtml(item.question),
-        answer: decodeHtml(item.correct_answer),
+        question: decodeHtml(result.question),
+        answer: decodeHtml(result.correct_answer),
         options: options.map((opt) => decodeHtml(opt))
       }
     })
@@ -158,7 +187,7 @@ const userAnswer = (answer) => {
 
 retakeQuiz.onclick = () => {
   resultBox.classList.add('inactive')
-  quizBox.classList.remove('.inactive')
+  quizBox.classList.remove('inactive')
 
   resetQuiz()
 }
