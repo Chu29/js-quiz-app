@@ -2,11 +2,10 @@
 
 // select quiz params
 const numberOfQtn = document.querySelector('#num-qtn')
-const difficulty = [...document.querySelectorAll('.difficulty option')]
-let categoriesOption = []
+const selectDifficulty = document.getElementById('difficulty')
+const difficulty = selectDifficulty.options[selectDifficulty.selectedIndex]
 
 let questions = []
-questions.ma
 
 /**
  * This function helps to decode questions containing html tags
@@ -31,16 +30,21 @@ const fetchCategories = async () => {
       'beforeend',
       `<option value = "${element.id}">${element.name}</option>`
     )
-    categoriesOption.push(categories)
   }
 }
 
 fetchCategories()
 
 const fetchQuestions = async () => {
+  const selectCategory = document.getElementById('categories')
+  const category = selectCategory.options[selectCategory.selectedIndex].value
+
+  const selectDifficulty = document.getElementById('difficulty')
+  const difficulty =
+    selectDifficulty.options[selectDifficulty.selectedIndex].value
   try {
     const response = await fetch(
-      `https://opentdb.com/api.php?amount=${numberOfQtn.value}&category=18&difficulty=easy`
+      `https://opentdb.com/api.php?amount=${numberOfQtn.value}&category=${category}&difficulty=${difficulty}`
     )
 
     if (!response.ok) {
