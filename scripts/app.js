@@ -3,7 +3,7 @@
 // select quiz params
 const numberOfQtn = document.querySelector('#num-qtn')
 const selectDifficulty = document.getElementById('difficulty')
-const difficulty = selectDifficulty.options[selectDifficulty.selectedIndex]
+let difficulty = selectDifficulty.options[selectDifficulty.selectedIndex]
 
 let questions = []
 
@@ -40,8 +40,7 @@ const fetchQuestions = async () => {
   const category = selectCategory.options[selectCategory.selectedIndex].value
 
   const selectDifficulty = document.getElementById('difficulty')
-  const difficulty =
-    selectDifficulty.options[selectDifficulty.selectedIndex].value
+  difficulty = selectDifficulty.options[selectDifficulty.selectedIndex].value
   try {
     const response = await fetch(
       `https://opentdb.com/api.php?amount=${numberOfQtn.value}&category=${category}&difficulty=${difficulty}`
