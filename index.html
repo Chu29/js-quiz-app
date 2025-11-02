@@ -3,10 +3,85 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles/index.css" />
     <title>Quizito</title>
   </head>
   <body>
+    <section class="quiz-setup">
+      <div class="category-ctn">
+        <label for="categories">Select Category:</label>
+        <select name="categories" id="categories" class="categories"></select>
+      </div>
+      <div class="difficulty-num-questions-ctn">
+        <div class="diff">
+          <label for="difficulty">Difficulty:</label>
+          <select name="difficulty" id="difficulty" class="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div class="number-of-qtn">
+          <input
+            type="number"
+            name="questions"
+            id="num-qtn"
+            placeholder="How many questions?..."
+            min="5"
+            max="25"
+            step="5"
+            oninput="if(this.value>25)this.value=25"
+          />
+        </div>
+      </div>
+      <button class="start-quiz">Start Quiz</button>
+    </section>
+
+    <!-- Questions section -->
+    <section class="quiz-box inactive">
+      <h2 class="que-text">1. Hyper Text Markup Language</h2>
+      <div class="options">
+        <div class="option incorrect disabled">
+          Hyper Text Multiple Language <i class="fa fa-times"></i>
+        </div>
+        <div class="option disabled">Hyper Tool Multi Language</div>
+        <div class="option correct disabled">
+          Hyper Text Markup Language <i class="fa fa-check"></i>
+        </div>
+      </div>
+      <div class="quiz-footer">
+        <div class="footer-left">
+          <span class="count-que">1</span> of
+          <span class="total-que">5</span> Questions
+        </div>
+        <div class="footer-right">
+          <div class="next-btn inactive">Next Question</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results section -->
+    <section class="result-box inactive">
+      <h2>Result</h2>
+      <div class="result">
+        <h3 class="total-que">Total Questions : <span>5</span></h3>
+        <h3 class="right-ans">Right Answers : <span>3</span></h3>
+        <h3 class="wrong-ans">Wrong Answers : <span>2</span></h3>
+        <h3 class="percentage">Percentage : <span>60.00%</span></h3>
+      </div>
+      <div class="result-footer">
+        <div class="again-quiz">Retake Quiz</div>
+        <div class="exit">Exit</div>
+      </div>
+    </section>
     <script src="scripts/app.js"></script>
   </body>
 </html>
