@@ -57,7 +57,7 @@ const fetchQuestions = async () => {
     const data = await response.json()
 
     if (data.response_code !== 0) {
-      throw new Error(`Try different categories/amount.`)
+      throw new Error('Try different categories/amount.')
     }
 
     questions = data.results.map((result, index) => {
