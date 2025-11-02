@@ -1,7 +1,7 @@
 'use strict'
 
 // select quiz params
-const numberOfQtn = document.querySelector('#num-qtn')
+let numberOfQtn = document.querySelector('#num-qtn')
 const selectDifficulty = document.getElementById('difficulty')
 let difficulty = selectDifficulty.options[selectDifficulty.selectedIndex]
 
@@ -41,9 +41,11 @@ const fetchQuestions = async () => {
 
   const selectDifficulty = document.getElementById('difficulty')
   difficulty = selectDifficulty.options[selectDifficulty.selectedIndex].value
+
+  numberOfQtn = document.querySelector('#num-qtn').value
   try {
     const response = await fetch(
-      `https://opentdb.com/api.php?amount=${numberOfQtn.value}&category=${category}&difficulty=${difficulty}`
+      `https://opentdb.com/api.php?amount=${numberOfQtn}&category=${category}&difficulty=${difficulty}`
     )
 
     if (!response.ok) {
@@ -55,9 +57,7 @@ const fetchQuestions = async () => {
     const data = await response.json()
 
     if (data.response_code !== 0) {
-      throw new Error(
-        `API Error: Response Code ${data.response_code}. Try different categories/amount.`
-      )
+      throw new Error(`Try different categories/amount.`)
     }
 
     questions = data.results.map((result, index) => {
@@ -80,10 +80,10 @@ const fetchQuestions = async () => {
     totalQuestionAns.textContent = questions.length
 
     startQuiz()
-  } catch (e) {
-    console.error('Error loading quiz questions:', e.message)
+  } catch (error) {
+    console.error('Error loading quiz questions:', error.message)
 
-    startBtn.textContent = `Error loading quiz: ${e.message}. Click to retry.`
+    startBtn.textContent = `Error loading quiz: ${error.message}. Click to retry.`
     startBtn.classList.remove('inactive')
   }
 }

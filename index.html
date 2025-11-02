@@ -23,11 +23,7 @@
       <div class="difficulty-num-questions-ctn">
         <div class="diff">
           <label for="difficulty">Difficulty:</label>
-          <select
-            name="difficulty"
-            id="difficulty"
-            class="difficulty"
-          >
+          <select name="difficulty" id="difficulty" class="difficulty">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -42,6 +38,7 @@
             min="5"
             max="25"
             step="5"
+            oninput="if(this.value>25)this.value=25"
           />
         </div>
       </div>
